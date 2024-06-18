@@ -53,6 +53,9 @@ sql_listar_pacientes = "SELECT * FROM paciente"
 sql_listar_agendamentos = "SELECT * FROM agendamento"
 sql_listar_procedimentos = "SELECT * FROM procedimento"
 
+
+#======================== Métodos =======================
+
 def imprime_menu_principal():
     print("""
            ╔═══════════════════════════════╗
