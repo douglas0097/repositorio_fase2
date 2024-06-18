@@ -252,3 +252,99 @@ def exclui_paciente_pelo_cpf():
         dados_remover = (cpf,)
         excluirDadosTabela(conexao, sql_remover, dados_remover)
         print("Paciente removido com sucesso!")
+
+def cria_agendamento():
+    def cria_agendamento():
+                    
+        testa = True
+
+        while testa: 
+            cpf = input("\nInforme o cpf do paciente: ")
+            consulta = input("Informe o procedimento que será realizado: ")
+            if not cpf or not consulta:
+                print("\nInforme todos os dados solicitados!")
+            else:
+                agendamento = { "cpf": cpf, "consulta": consulta}
+                testa = False
+                return agendamento
+
+    agendamento = cria_agendamento()
+
+    cpf = agendamento["cpf"]
+    consulta = agendamento["consulta"]
+
+    #insere o medico na tabela
+    sql_inserir_agendamento = "INSERT INTO agendamento (cpf, consulta) VALUES (%s, %s)"
+    dados_insert = (cpf, consulta)
+    insertNaTabela(conexao, sql_inserir_agendamento, dados_insert)
+    print("Agendamento realizado com sucesso!")
+    print(listarTabelas(conexao, sql_listar_agendamentos))
+def busca_agendamento_pelo_codigo():
+
+    id = input("\nInforme o código do agendamento que você deseja buscar: ")
+
+    cursor = conexao.cursor()
+    sql_buscar_agendamento = "SELECT * FROM agendamento WHERE id = %s"
+    cursor.execute(sql_buscar_agendamento, (id,))
+    consulta = cursor.fetchone()
+
+    if consulta:
+        print(f"\nAgendamento encontrado:\n"
+        f"CPF do paciente: {consulta[1]}\n"
+        f"Procedimento: {consulta[2]}\n")
+    else:
+        print("Nenhum agendamento encontrado.")
+def exclui_agendamento_pelo_codigo():
+
+    #mostra os agentamentos cadastrados antes de excluir
+    print(listarTabelas(conexao, sql_listar_agendamentos))
+
+    #remove um agendamento pelo código
+    id = input("Informe o código do agendamento que você deseja remover: ")
+
+    cursor = conexao.cursor()
+
+    # SQL para buscar o paciente pelo CPF antes de excluir
+    sql_buscar_agendamento = "SELECT * FROM agendamento WHERE id = %s"
+    cursor.execute(sql_buscar_agendamento, (id,))
+    consulta = cursor.fetchone()
+
+    # Verifica se o paciente com o CPF existe
+    if not consulta:
+        print(f"Agendameno com código {id} não encontrado.")
+    else:
+        sql_remover = "DELETE FROM agendamento WHERE id = %s"
+        dados_remover = (id,)
+        excluirDadosTabela(conexao, sql_remover, dados_remover)
+        print("Agendamento removido com sucesso!")
+
+def cria_procedimento():
+    def cria_procedimento():
+                        
+        testa = True
+
+        while testa: 
+            cpf = input("\nInforme o cpf do paciente: ")
+            consulta = input("Informe o procedimento que foi realizado: ")
+
+            if not cpf or not consulta:
+                print("\nInforme todos os dados solicitados!")
+            else:
+                procedimento = { "cpf": cpf, "consulta": consulta}
+                testa = False
+                return procedimento
+
+    procedimento = cria_procedimento()
+
+    cpf = procedimento["cpf"]
+    consulta = procedimento["consulta"]
+
+    #insere o procedimento na tabela
+    sql_inserir_procedimento = "INSERT INTO procedimento (cpf, consulta) VALUES (%s, %s)"
+    dados_insert = (cpf, consulta)
+    insertNaTabela(conexao, sql_inserir_procedimento, dados_insert)
+
+    print("Procedimento cadastrado com sucesso!")
+    print(listarTabelas(conexao, sql_listar_procedimentos))
+def lista_procedimentos():
+    print(listarTabelas(conexao, sql_listar_procedimentos))        
