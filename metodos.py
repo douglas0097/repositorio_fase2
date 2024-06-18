@@ -52,3 +52,62 @@ sql_listar_medicos = "SELECT * FROM medico"
 sql_listar_pacientes = "SELECT * FROM paciente"
 sql_listar_agendamentos = "SELECT * FROM agendamento"
 sql_listar_procedimentos = "SELECT * FROM procedimento"
+
+def imprime_menu_principal():
+    print("""
+           ╔═══════════════════════════════╗
+           ║       Bem-vindo ao Help       ║
+           ║ Escolha uma de nossas opções: ║
+           ║  1. Médico                    ║
+           ║  2. Paciente                  ║
+           ║  3. Administrativo            ║
+           ║  4. Sair                      ║
+           ╚═══════════════════════════════╝ """)
+def imprime_menu_medico():
+    print(""" 
+        ╔═════════════════════════════════════╗
+        ║ Escolha uma de nossas opções:       ║
+        ║                                     ║
+        ║  1. Cadastrar médico                ║
+        ║  2. Pesquisar médico por CRM        ║
+        ║  3. Excluir médico por CRM          ║
+        ║  4. Voltar ao menu anterior         ║
+        ╚═════════════════════════════════════╝ """) 
+def imprime_menu_paciente():
+    print( """
+        ╔═══════════════════════════════════════╗
+        ║ Escolha uma de nossas opções:         ║
+        ║                                       ║
+        ║  1. Cadastrar paciente                ║
+        ║  2. Pesquisar paciente por CPF        ║
+        ║  3. Excluir paciente por CPF          ║
+        ║  4. Voltar ao menu principal          ║
+        ╚═══════════════════════════════════════╝ """)
+def imprime_menu_administrativo():
+    print( """
+        ╔═══════════════════════════════════════╗
+        ║ Escolha uma de nossas opções:         ║
+        ║                                       ║
+        ║  1. Agendamentos                      ║
+        ║  2. Registro de procedimentos         ║
+        ║  3. Voltar ao menu principal          ║
+        ╚═══════════════════════════════════════╝ """)
+def imprime_menu_agendamentos():
+    print( """
+        ╔═══════════════════════════════════════╗
+        ║ Escolha uma de nossas opções:         ║
+        ║                                       ║
+        ║  1. Adicionar agendamentos            ║
+        ║  2. Visualizar agendamentos           ║
+        ║  3. Cancelar agendamento              ║
+        ║  4. Voltar ao menu principal          ║
+        ╚═══════════════════════════════════════╝ """)
+def imprime_menu_procedimentos():
+    print( """
+        ╔═══════════════════════════════════════╗
+        ║ Escolha uma de nossas opções:         ║
+        ║                                       ║
+        ║  1. Registrar um procedimento         ║
+        ║  2. Listar procedimentos              ║
+        ║  3. Voltar ao menu principal          ║
+        ╚═══════════════════════════════════════╝ """)
