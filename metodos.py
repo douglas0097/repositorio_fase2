@@ -114,10 +114,6 @@ def imprime_menu_procedimentos():
         ║  2. Listar procedimentos              ║
         ║  3. Voltar ao menu principal          ║
         ╚═══════════════════════════════════════╝ """)
-    
-
-#===============================================
-
 
 def criar_medico_principal():
     def cria_medico():
@@ -185,3 +181,74 @@ def exclui_medico_pelo_crm():
         excluirDadosTabela(conexao, sql_remover, dados_remover)
         print("Médico removido com sucesso!")
     #---------------------------------------------------
+
+def criar_paciente_principal():
+    def cria_paciente():
+
+        testa = True
+
+        while testa:
+
+            nome = input("\nInforme o nome do paciente: ")
+            idade = input("Informe a idade do paciente: ")
+            endereco = input("Informe o endereco do paciente: ")
+            telefone = input("Informe o telefone do paciente: ")
+
+            if not nome or not idade or not endereco or not telefone:
+                print("\nInforme todos os dados solicitados!")
+            else:
+                paciente = { "nome": nome, "idade": idade, "endereco": endereco, "telefone": telefone}
+                testa = False
+                return paciente
+
+    paciente = cria_paciente()
+
+    nome = paciente["nome"]
+    idade = paciente["idade"]
+    endereco = paciente["endereco"]
+    telefone = paciente["telefone"]
+
+    #insere o paciente na tabela
+    sql_inserir_paciente = "INSERT INTO paciente (nome, idade, endereco, telefone) VALUES (%s, %s, %s, %s)"
+    dados_insert = (nome, idade, endereco, telefone)
+    insertNaTabela(conexao, sql_inserir_paciente, dados_insert)
+    print("Paciente cadastrado com sucesso!")
+    print(listarTabelas(conexao, sql_listar_pacientes))
+def busca_paciente_pelo_cpf():
+    cpf = input("Informe o cpf do paciente que você deseja buscar: ")
+    cursor = conexao.cursor()
+    sql_buscar_paciente = "SELECT * FROM paciente WHERE cpf = %s"
+    cursor.execute(sql_buscar_paciente, (cpf,))
+    paciente = cursor.fetchone()
+
+    if paciente:
+        print(f"\nPaciente encontrado:\n"
+          f"Nome: {paciente[1]}\n"
+          f"Idade: {paciente[2]}\n"
+          f"Endereço: {paciente[3]}\n"
+          f"Telefone: {paciente[4]}")
+    else:
+        print("Nenhum paciente encontrado com o CPF informado.")
+def exclui_paciente_pelo_cpf():
+    
+    #mostra os pacientes cadastrados antes de excluir
+    print(listarTabelas(conexao, sql_listar_pacientes))
+
+    #remove um paciente pelo cpf 
+    cpf = input("Informe o cpf do paciente que você deseja remover: ")
+
+    cursor = conexao.cursor()
+
+    # SQL para buscar o paciente pelo CPF antes de excluir
+    sql_buscar_paciente = "SELECT * FROM paciente WHERE cpf = %s"
+    cursor.execute(sql_buscar_paciente, (cpf,))
+    paciente = cursor.fetchone()
+
+    # Verifica se o paciente com o CPF existe
+    if not paciente:
+        print(f"Paciente com CPF {cpf} não encontrado.")
+    else:
+        sql_remover = "DELETE FROM paciente WHERE cpf = %s"
+        dados_remover = (cpf,)
+        excluirDadosTabela(conexao, sql_remover, dados_remover)
+        print("Paciente removido com sucesso!")
